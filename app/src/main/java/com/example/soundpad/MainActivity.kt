@@ -1,14 +1,25 @@
 package com.example.soundpad
 
+import android.media.AudioManager
 import android.media.MediaPlayer
+import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.example.soundpad.R.raw.kick
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+         var soundPool : SoundPool = SoundPool(8, AudioManager.STREAM_MUSIC, 0)
+
+
+
+        soundPool!!.load(baseContext,R.raw.kick,0)
+        soundPool!!.load(baseContext,R.raw.clap,1)
+        soundPool!!.load(baseContext,R.raw.snare,2)
 
         val arrayBtn : Array<Button> = arrayOf(
             findViewById(R.id.button_1),
@@ -16,6 +27,8 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.button_3),
             findViewById(R.id.button_4)
         )
+
+
 
         val arraySound = arrayOf(
             MediaPlayer.create(this,R.raw.oh_shit_iam_sorry),
@@ -25,19 +38,19 @@ class MainActivity : AppCompatActivity() {
         )
 
         arrayBtn[0].setOnClickListener {
-            arraySound[0].start()
+            soundPool?.play(1,1f,1f,0,0,1f)
         }
 
         arrayBtn[1].setOnClickListener {
-            arraySound[1].start()
+            soundPool?.play(3,1f,1f,0,0,1f)
         }
 
         arrayBtn[2].setOnClickListener {
-            arraySound[2].start()
+            soundPool?.play(2,1f,1f,0,0,1f)
         }
 
         arrayBtn[3].setOnClickListener {
-            arraySound[3].start()
+
         }
     }
 }
